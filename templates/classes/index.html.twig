@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classes index{% endblock %}
+
+{% block body %}
+
+    <h1>Classes de l'école</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Nom de la classe</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for class in classes %}
+            <tr>
+                
+                <td>{{ class.nomClasse }}</td>
+                <td id="actions">
+                    
+                    <p><a href="{{ path('app_classes_show', {'id': class.id}) }}">Voir</a></p>
+                    {% if app.user %}
+                    <p><a href="{{ path('app_classes_edit', {'id': class.id}) }}">Editer</a></p>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!-- Ne faire apparaitre le lien que si l'utilisateur est connecté -->
+    {% if app.user %}
+    <a href="{{ path('app_classes_new') }}">Créer une nouvelle classe</a>
+
+    {% endif %}
+{% endblock %}
